@@ -4,7 +4,7 @@ from django.urls import reverse
 class Technician(models.Model):
     first_name = models.CharField(max_length=100,)
     last_name = models.CharField(max_length=100,)
-    employee_id = models.CharField(max_length=50,)
+    employee_id = models.CharField(max_length=50, unique=True,)
 
     def get_api_url(self):
         return reverse("api_technician", kwargs={"pk": self.id})

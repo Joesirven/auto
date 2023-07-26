@@ -10,8 +10,8 @@ from .views import (
 
 urlpatterns = [
     path("technicians/", api_technicians, name="api_technicians"),
-    path("technician/", api_technician, name="api_technician"),
+    path("technicians/<int:id>/", api_technician, name="api_technician"),
     path("appointments/", api_appointments, name="api_appointments"),
-    path("appointment/", api_appointment, name="api_appointment"),
+    path("appointments/<int:id>/", api_appointment, name="api_appointment"),
     path("autosvo/", api_autoVO, name="api_autosvo"),
 ]

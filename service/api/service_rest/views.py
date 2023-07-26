@@ -65,10 +65,10 @@ def api_technicians(request):
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])
-def api_technician(request, pk):
+def api_technician(request, id):
     if request.method == "GET":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
             return JsonResponse(
                 technician,
                 encoder=TechnicianEncoder,
@@ -80,7 +80,7 @@ def api_technician(request, pk):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
             technician.delete()
             return JsonResponse(
                 technician,
@@ -92,7 +92,7 @@ def api_technician(request, pk):
     else: # PUT
         try:
             content = json.loads(request.body)
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
 
             props = ["first_name", "last_name", "employee_id"]
             for prop in props:
@@ -146,10 +146,10 @@ def api_appointments(request):
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])
-def api_appointment(request, pk):
+def api_appointment(request, id):
     if request.method == "GET":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
             return JsonResponse(
                 technician,
                 encoder=TechnicianEncoder,
@@ -161,7 +161,7 @@ def api_appointment(request, pk):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
             technician.delete()
             return JsonResponse(
                 technician,

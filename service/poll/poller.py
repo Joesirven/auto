@@ -18,7 +18,6 @@ def get_automobile():
         'http://project-beta-inventory-api-1:8000/api/automobiles/',
     )
     content = json.loads(response.content)
-    print(content)
     for automobileVO in content["autos"]:
         AutomobileVO.objects.update_or_create(
             href=automobileVO["href"],

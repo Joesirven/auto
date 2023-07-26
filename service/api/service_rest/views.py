@@ -79,7 +79,7 @@ def api_technicians(request):
 def api_technician(request, id):
     if request.method == "GET":
         try:
-            technician = Technician.objects.get(id=id)
+            technician = Technician.objects.get(employee_id=id)
             return JsonResponse(
                 technician,
                 encoder=TechnicianEncoder,
@@ -103,7 +103,7 @@ def api_technician(request, id):
     else: # PUT
         try:
             content = json.loads(request.body)
-            technician = Technician.objects.get(id=id)
+            technician = Technician.objects.get(employee_id=id)
 
             props = ["first_name", "last_name", "employee_id"]
             for prop in props:
@@ -129,20 +129,26 @@ def api_appointments(request):
             {"appointments": appointments},
             encoder=AppointmentEncoder,
         )
-
     else: #POST
         try:
             content = json.loads(request.body)
             try:
-                technician_id = content['technician_id']
-                technician = Technician.objects.get(id=technician_id)
+                technician = Technician.objects.get(employee_id=content["technician"])
                 content["technician"] = technician
+                technician_json = TechnicianEncoder().encode(technician)
+                print(f"Technician JSON: {technician_json}")
+                appointment = Appointment.objects.create(**content)
+                print(f"Type of 'appointment': {type(appointment)}")
             except Technician.DoesNotExist:
                 return JsonResponse(
-                    {"message": "Bin object id does not exist"},
+                    {"message": "Technician does not exist"},
                     status=400,
                 )
-            appointment = Appointment.objects.create(**content)
+            except IntegrityError:
+                return JsonResponse(
+                    {"message": "VIN is not unique."},
+                    status=400,
+                )
             return JsonResponse(
                 appointment,
                 encoder=AppointmentEncoder,
@@ -160,31 +166,31 @@ def api_appointments(request):
 def api_appointment(request, id):
     if request.method == "GET":
         try:
-            technician = Technician.objects.get(id=id)
+            appointment = Appointment.objects.get(id=id)
             return JsonResponse(
-                technician,
-                encoder=TechnicianEncoder,
+                appointment,
+                encoder=AppointmentEncoder,
                 safe=False
             )
-        except Technician.DoesNotExist:
-            response = JsonResponse({"message": "Technician does not exist"})
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "Appointment does not exist"})
             response.status_code = 404
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=id)
-            technician.delete()
+            appointment = Appointment.objects.get(id=id)
+            appointment.delete()
             return JsonResponse(
-                technician,
-                encoder=TechnicianEncoder,
+                appointment,
+                encoder=AppointmentEncoder,
                 safe=False,
             )
-        except Technician.DoesNotExist:
-            return JsonResponse({"message": "Technician does not exist"})
+        except Appointment.DoesNotExist:
+            return JsonResponse({"message": "Appointment does not exist"})
     else: # PUT
         try:
             content = json.loads(request.body)
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(id=id)
             props = ["first_name", "last_name", "employee_id"]
             for prop in props:
                 if prop in content:

@@ -1,4 +1,4 @@
-from common.json import ModelEncoder
+from common.json import ModelEncoder, DateEncoder
 
 from .models import Technician, AutomobileVO, Appointment
 
@@ -25,13 +25,14 @@ class AutomobileVOEncoder(ModelEncoder):
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
-        "date-time",
         "reason",
         "status",
         "vin",
         "customer",
         "technician",
+        "date_time"
     ]
     encoders = {
-        "technician": TechnicianEncoder
+        "technician": TechnicianEncoder(),
+        "date_time": DateEncoder()
     }

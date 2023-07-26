@@ -34,8 +34,14 @@ class ModelEncoder(DateEncoder, QuerySetEncoder, JSONEncoder):
             for property in self.properties:
                 value = getattr(o, property)
                 if property in self.encoders:
+
                     encoder = self.encoders[property]
-                    value = encoder.default(value)
+                    try:
+                        value = encoder.default(value)
+                    except TypeError as e:
+                        # Print the error for debugging purposes
+                        print(f"Error in encoding property '{property}': {e}")
+                        value = str(value)
                 d[property] = value
             d.update(self.get_extra_data(o))
             return d

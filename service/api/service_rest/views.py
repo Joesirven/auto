@@ -243,14 +243,8 @@ def api_appointment_cancel(request, id):
 @require_http_methods(["PUT"])
 def api_appointment_finish(request, id):
     try:
-        content = json.loads(request.body)
         appointment = Appointment.objects.get(id=id)
-        props = [
-            "status",
-        ]
-        for prop in props:
-            if prop in content:
-                setattr(appointment, prop, "finished")
+        setattr(appointment, "status", "finished")
         appointment.save()
         return JsonResponse(
             appointment,

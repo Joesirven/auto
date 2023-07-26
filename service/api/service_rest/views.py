@@ -187,18 +187,77 @@ def api_appointment(request, id):
     else: # PUT
         try:
             content = json.loads(request.body)
-            technician = Technician.objects.get(id=id)
-            props = ["first_name", "last_name", "employee_id"]
+            try:
+                technician = Technician.objects.get(employee_id=content["technician"])
+                content["technician"] = technician
+            except Technician.DoesNotExist:
+                return JsonResponse(
+                    {"message": "Technician does not exist"},
+                    status=400,
+                )
+            except IntegrityError:
+                return JsonResponse(
+                    {"message": "VIN is not unique."},
+                    status=400,
+                )
+            appointment = Appointment.objects.get(id=id)
+            props = [
+                "reason",
+                "status",
+                "vin",
+                "customer",
+                "technician",
+                "date_time",
+            ]
             for prop in props:
                 if prop in content:
-                    setattr(technician, prop, content[prop])
-            technician.save()
+                    setattr(appointment, prop, content[prop])
+            appointment.save()
             return JsonResponse(
-                technician,
-                encoder=TechnicianEncoder,
+                appointment,
+                encoder=AppointmentEncoder,
                 safe=False,
             )
-        except Technician.DoesNotExist:
-            response = JsonResponse({"message": "Technician does not exist"})
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "Appointmnet does not exist"})
             response.status_code = 404
             return response
+
+@require_http_methods(["PUT"])
+def api_appointment_cancel(request, id):
+    try:
+        appointment = Appointment.objects.get(id=id)
+        setattr(appointment, "status", "cancel")
+        appointment.save()
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    except Appointment.DoesNotExist:
+        response = JsonResponse({"message": "Appointmnet does not exist"})
+        response.status_code = 404
+        return response
+
+
+@require_http_methods(["PUT"])
+def api_appointment_finish(request, id):
+    try:
+        content = json.loads(request.body)
+        appointment = Appointment.objects.get(id=id)
+        props = [
+            "status",
+        ]
+        for prop in props:
+            if prop in content:
+                setattr(appointment, prop, "finished")
+        appointment.save()
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    except Appointment.DoesNotExist:
+        response = JsonResponse({"message": "Appointmnet does not exist"})
+        response.status_code = 404
+        return response

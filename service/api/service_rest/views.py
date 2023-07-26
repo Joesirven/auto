@@ -5,11 +5,37 @@ import json
 
 from .encoders import (
     TechnicianEncoder,
-    AppointmentEncoder
+    AppointmentEncoder,
+    AutomobileVOEncoder
 )
 
 
 from .models import Technician, AutomobileVO, Appointment
+
+
+def api_autoVO(request):
+    if request.method == "GET":
+        autosVO = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"autosVO": autosVO},
+            encoder=AutomobileVOEncoder,
+        )
+
+    else:
+        try:
+            content = json.loads(request.body)
+            autosVO = AutomobileVO.objects.create(**content)
+            return JsonResponse(
+                autosVO,
+                encoder=AutomobileVOEncoder,
+                safe=False,
+            )
+        except AttributeError:
+            response = JsonResponse(
+                {"message": "Could not create the technician"}
+            )
+            response.status_code = 400
+            return response
 
 
 @require_http_methods(["GET", "POST"])
@@ -97,19 +123,18 @@ def api_appointments(request):
         try:
             content = json.loads(request.body)
             try:
-                id = content['bin']
-                href = f"/api/bins/{id}/"
-                technician_object = Technician.objects.get(import_href=href)
-                content["bin"] = technician_object
+                technician_id = content['technician_id']
+                technician = Technician.objects.get(id=technician_id)
+                content["technician"] = technician
             except Technician.DoesNotExist:
                 return JsonResponse(
                     {"message": "Bin object id does not exist"},
                     status=400,
                 )
-            shoe = Shoe.objects.create(**content)
+            appointment = Appointment.objects.create(**content)
             return JsonResponse(
-                shoe,
-                encoder=ShoeEncoder,
+                appointment,
+                encoder=AppointmentEncoder,
                 safe=False,
             )
         except AttributeError:
@@ -149,7 +174,6 @@ def api_appointment(request, pk):
         try:
             content = json.loads(request.body)
             technician = Technician.objects.get(id=pk)
-
             props = ["first_name", "last_name", "employee_id"]
             for prop in props:
                 if prop in content:

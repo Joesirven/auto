@@ -38,8 +38,7 @@ class ModelEncoder(DateEncoder, QuerySetEncoder, JSONEncoder):
                     encoder = self.encoders[property]
                     try:
                         value = encoder.default(value)
-                    except TypeError as e:
-                        # Print the error for debugging purposes
+                    except TypeError:
                         print(f"Error in encoding property '{property}': {e}")
                         value = str(value)
                 d[property] = value

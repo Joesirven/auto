@@ -91,7 +91,7 @@ def api_technician(request, id):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(employee_id=id)
+            technician = Technician.objects.get(id=id)
             technician.delete()
             return JsonResponse(
                 technician,
@@ -183,7 +183,10 @@ def api_appointment(request, id):
                 safe=False,
             )
         except Appointment.DoesNotExist:
-            return JsonResponse({"message": "Appointment does not exist"})
+            return JsonResponse(
+                {"message": "Appointment does not exist"},
+                status=404,
+            )
     else: # PUT
         try:
             content = json.loads(request.body)
@@ -227,7 +230,7 @@ def api_appointment(request, id):
 def api_appointment_cancel(request, id):
     try:
         appointment = Appointment.objects.get(id=id)
-        setattr(appointment, "status", "cancel")
+        setattr(appointment, "status", "canceled")
         appointment.save()
         return JsonResponse(
             appointment,

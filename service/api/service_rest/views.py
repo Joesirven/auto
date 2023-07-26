@@ -60,7 +60,9 @@ def api_technicians(request):
             )
         except IntegrityError:
             response = JsonResponse(
-                {"message": "Employee id already exists. Select a unique employee id."}
+                {
+                    "message": "Employee id already exists. Select a unique employee id."
+                }
             )
             response.status_code = 400
             return response
@@ -89,7 +91,7 @@ def api_technician(request, id):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=id)
+            technician = Technician.objects.get(employee_id=id)
             technician.delete()
             return JsonResponse(
                 technician,

@@ -135,10 +135,7 @@ def api_appointments(request):
             try:
                 technician = Technician.objects.get(employee_id=content["technician"])
                 content["technician"] = technician
-                technician_json = TechnicianEncoder().encode(technician)
-                print(f"Technician JSON: {technician_json}")
                 appointment = Appointment.objects.create(**content)
-                print(f"Type of 'appointment': {type(appointment)}")
             except Technician.DoesNotExist:
                 return JsonResponse(
                     {"message": "Technician does not exist"},

@@ -25,6 +25,7 @@ class AutomobileVOEncoder(ModelEncoder):
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "reason",
         "status",
         "vin",

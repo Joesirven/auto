@@ -4,23 +4,13 @@ from django.urls import reverse
 # Create your models here.
 
 
-class Salesperson(models.Model):
+class Technician(models.Model):
     first_name = models.CharField(max_length=100,)
     last_name = models.CharField(max_length=100,)
     employee_id = models.CharField(max_length=50,)
 
     def get_api_url(self):
-        return reverse("api_salesperson", kwargs={"pk": self.id})
-
-
-class Customer(models.Model):
-    first_name = models.CharField(max_length=100,)
-    last_name = models.CharField(max_length=100,)
-    address = models.CharField(max_length=150,)
-    phone_number = models.CharField(max_length=30,)
-
-    def get_api_url(self):
-        return reverse("api_customer", kwargs={"pk": self.id})
+        return reverse("api_technician", kwargs={"pk": self.id})
 
 
 class AutomobileVO(models.Model):
@@ -30,26 +20,18 @@ class AutomobileVO(models.Model):
     def get_api_url(self):
         return reverse("api_automobileVO", kwargs={"pk": self.id})
 
-class Sale(models.Model):
-    automobile = models.ForeignKey(
-        AutomobileVO,
+
+class Appointment(models.Model):
+    date_time = models.DateTimeField()
+    reason = models.CharField(max_length=500,)
+    status = models.CharField(max_length=20, default="created",)
+    vin = models.CharField(max_length=100,)
+    customer = models.CharField(max_length=150,)
+    technician = models.ForeignKey(
+        Technician,
         on_delete=models.CASCADE,
-        related_name="sale",
-    )
-    salesperson = models.ForeignKey(
-        Salesperson,
-        on_delete=models.CASCADE,
-        related_name="sale",
-    )
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-        related_name="sale",
-    )
-    price = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
+        related_name="appointment",
     )
 
     def get_api_url(self):
-        return reverse("api_sale", kwargs={"pk": self.id})
+        return reverse("api_appointment", kwargs={"pk": self.id})

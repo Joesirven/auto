@@ -91,7 +91,7 @@ def api_technician(request, id):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=id)
+            technician = Technician.objects.get(employee_id=id)
             technician.delete()
             return JsonResponse(
                 technician,

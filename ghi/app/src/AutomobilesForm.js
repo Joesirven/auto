@@ -47,12 +47,12 @@ function AutomobilesForm() {
 
     const handleYearChange = (event) => {
         const value = event.target.value
-        setYear(value))
+        setYear(value)
     }
 
     const handleVINChange = (event) => {
         const value = event.target.value
-        setVIN(value))
+        setVIN(value)
     }
 
 
@@ -65,14 +65,18 @@ function AutomobilesForm() {
                     <form onSubmit={handleSubmit} id="create-model-form">
                         <div className="form-floating mb-3">
                             <input onChange={handleColorChange} placeholder="Color" required type="text" value={color} name="color" id="color" className="form-control" />
-                            <label htmlFor="name">Vehicle Model</label>
+                            <label htmlFor="color">Color</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handlePictureUrlChange} placeholder="Picture URL" required type="url" value={picture_url} name="picture" id="picture_url" className="form-control" />
-                            <label htmlFor="name">Picture URL</label>
+                            <input onChange={handleYearChange} placeholder="Year" required type="text" value={year} name="year" id="year" className="form-control" />
+                            <label htmlFor="year">Year</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleVINChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
+                            <label htmlFor="vin">VIN</label>
                         </div>
                         <div className="mb-3">
-                            <select onChange={handlemodelChange} required value={model_id} name="model" id="model" className="form-select">
+                            <select onChange={handleModelChange} required value={model_id} name="model" id="model" className="form-select">
                                 <option value="">Choose a model</option>
                                 {models.map(model => {
                                     return (

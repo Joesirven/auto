@@ -1,10 +1,14 @@
 from django.db import models
+from django.urls import reverse
 
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
     import_href = models.CharField(max_length=100, unique=True)
+
+    def get_api_url(self):
+            return reverse("api_automobileVO", kwargs={"pk": self.id})
 
 
 class Salesperson(models.Model):

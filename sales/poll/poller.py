@@ -4,13 +4,12 @@ import sys
 import time
 import json
 import requests
-from sales_rest.models import AutomobileVO
-
 
 sys.path.append("")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sales_project.settings")
 django.setup()
 
+from sales_rest.models import AutomobileVO
 
 def get_automobile():
     response = requests.get(
@@ -27,13 +26,18 @@ def get_automobile():
         )
 
 
-def poll():
+def poll(repeat=True):
     while True:
         print('Sales poller polling for data')
         try:
             get_automobile()
         except Exception as e:
             print(e, file=sys.stderr)
+
+        if (not repeat):
+            break
+
+
         time.sleep(60)
 
 

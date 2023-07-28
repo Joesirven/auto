@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { FetchWrapper } from "./fetch-wrapper";
 
 function ServiceHistory() {
-    const [allAutomobiles, setAllAutomobiles] = useState([])
+    const [allAppointments, setAllAppointments] = useState([])
     const [refreshKey, setRefreshKey] = useState(0)
 
-    const InventoryAPI = new FetchWrapper('http://localhost:8100/')
+    const ServiceAPI = new FetchWrapper('http://localhost:8080/')
 
     const fetchData = async () => {
-        const automobilesData = await InventoryAPI.get('api/automobiles/')
-        setAllAutomobiles(automobilesData.autos)
+        const appointmentsData = await ServiceAPI.get('api/appointments/')
+        setAllAppointments(appointmentsData.appointments)
     }
 
     useEffect(() => {
@@ -17,44 +17,41 @@ function ServiceHistory() {
     }, [refreshKey])
 
 
-    // const soldText = automobile.sold ? 'Yes' : 'No';
-
-    // const deleteAutomobiles = id => {
-    //     InventoryAPI.delete(`api/Automobiles/${id}`).then(() => {
-    //         setRefreshKey(oldKey => oldKey + 1)
-    //     }).catch(error => {
-    //         console.error('Error deleting automobile:', error)
-    //     })
-    // };
-
 
     return (
     <>
+
+    <h1>Service History</h1>
+    <div>
+        <input></input><button>Search</button>
+    </div>
         <table className="table table-striped">
             <thead>
                 <tr>
                     <th>VIN</th>
-                    <th>Color</th>
-                    <th>Year</th>
-                    <th>Image</th>
-                    <th>Model</th>
-                    <th>Manufacturer</th>
-                    <th>Sold</th>
+                    <th>Is VIP?</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Technician</th>
+                    <th>Reason</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                {allAutomobiles.map(automobile => {
+                {allAppointments.map(appointment => {
                     return (
-                        <tr key={ automobile.id}>
-                            <td>{ automobile.vin }</td>
-                            <td>{ automobile.color }</td>
-                            <td>{ automobile.year }</td>
-                            <td>{ automobile.model.name }</td>
-                            <td>{ automobile.model.manufacturer.name }</td>
-                            <td>
-                                <img src={ automobile.model.picture_url } alt="new" />
-                            </td>
-                            <td>{ automobile.sold ? 'Yes' : 'No' }</td>
+                        <tr key={ appointment.id }>
+                            <td>{ appointment.vin }</td>
+                            <td>No</td>
+                            <td>{ appointment.customer }</td>
+                            <td>{ appointment.date_time }</td>
+                            <td>{ appointment.date_time }</td>
+                            <td>{ appointment.technician.first_name +
+                            ' ' +
+                            appointment.technician.last_name }</td>
+                            <td>{ appointment.reason }</td>
+                            <td>{ appointment.status }</td>
                         </tr>
                     )
                 })}

@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { FetchWrapper } from './fetch-wrapper'
 
 function AppointmentsForm() {
-    const [model_id, setModel] = useState('')
-    const [color, setColor] = useState('')
-    const [year, setYear] = useState('')
     const [vin, setVIN] = useState('')
-    const [models, setModels] = useState([])
+    const [customer, setCustomer] = useState('')
+    const [date, setDateTime] = useState('')
+    const [technicians, setTechnicians] = useState([])
+    const [technician, setTechnician] = useState('')
+    const [reason, setReason] = useState('')
 
-    const InventoryAPI = new FetchWrapper('http://localhost:8100/')
+    const ServiceAPI = new FetchWrapper('http://localhost:8100/')
 
     const fetchData = async () => {
-        const modelsData = await InventoryAPI.get('api/models/')
-        setModels(modelsData.models)
+        const techniciansData = await ServiceAPI.get('api/technicians/')
+        setTechnicians(techniciansData.technicians)
     }
 
     useEffect(() => {
@@ -23,36 +24,43 @@ function AppointmentsForm() {
         event.preventDefault()
         const data = {}
 
-        data.color = color
-        data.year = year
         data.vin = vin
-        data.model_id = model_id
+        data.customer = customer
+        data.date_time = date_time
+        data.technician = technician
+        data.reason = reason
 
-        const newAutomobile = await InventoryAPI.post('api/automobiles/', data)
-        setColor('')
-        setModel('')
-        setYear('')
+        const newAppointment = await ServiceAPI.post('api/appointments/', data)
         setVIN('')
-    }
-
-    const handleColorChange = (event) => {
-        const value = event.target.value
-        setColor(value)
-    }
-
-    const handleModelChange = (event) => {
-        const value = event.target.value
-        setModel(value)
-    }
-
-    const handleYearChange = (event) => {
-        const value = event.target.value
-        setYear(value)
+        setCustomer('')
+        setDateTime('')
+        setTechnician('')
+        setReason('')
     }
 
     const handleVINChange = (event) => {
         const value = event.target.value
         setVIN(value)
+    }
+
+    const handleCustomerChange = (event) => {
+        const value = event.target.value
+        setCustomer(value)
+    }
+
+    const handleDateTimeChange = (event) => {
+        const value = event.target.value
+        setDateTime(value)
+    }
+
+    const handleTechnicianChange = (event) => {
+        const value = event.target.value
+        setTechnician(value)
+    }
+
+    const handleReasonChange = (event) => {
+        const value = event.target.value
+        setReason(value)
     }
 
 

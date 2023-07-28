@@ -28,11 +28,13 @@ function Nav() {
                 </a>
                 <ul className="dropdown-menu">
                     <li><NavLink className="dropdown-item" to="/manufacturers" end>View Manufacturers</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/manufacturers/new" end>Add Manufacturer</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/manufacturers/create" end>Add Manufacturer</NavLink></li>
                     <li><NavLink className="dropdown-item" to="/automobiles" end>View Automobiles</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/automobiles/new" end>Add Automobiles</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/automobiles/create" end>Add Automobiles</NavLink></li>
                     <li><NavLink className="dropdown-item" to="/vehicles" end>View Models</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/vehicles/new" end>Add Models</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/vehicles/create" end>Add Models</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/salespeople" end>View Salespeople</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/salespeople/create" end>Add Salesperson</NavLink></li>
                 </ul>
             </li>
           </ul>

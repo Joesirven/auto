@@ -7,6 +7,11 @@ import VehiclesForm from './VehiclesForm';
 import VehiclesList from './VehiclesList';
 import AutomobilesForm from './AutomobilesForm';
 import AutomobilesList from './AutomobilesList';
+import TechniciansForm from './TechniciansForm';
+import TechniciansList from './TechniciansList';
+import AppointmentsList from './AppointmentsList';
+import AppointmentsForm from './AppointmentsForm';
+import ServiceHistory from './ServiceHistory';
 import SalespeopleList from './SalespersonList';
 import SalespersonForm from './SalespersonForm';
 
@@ -40,7 +45,7 @@ function App() {
             </Route>
             <Route path="vehicles">
                 <Route index element={<VehiclesList />} />
-                <Route path="create" element={<VehiclesForm />} />
+                <Route path="new" element={<VehiclesForm />} />
             </Route>
         </Routes>
       </div>

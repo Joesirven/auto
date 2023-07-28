@@ -7,13 +7,13 @@ import VehiclesForm from './VehiclesForm';
 import VehiclesList from './VehiclesList';
 import AutomobilesForm from './AutomobilesForm';
 import AutomobilesList from './AutomobilesList';
+import SalespeopleList from './SalespersonList';
+import SalespersonForm from './SalespersonForm';
 import TechniciansForm from './TechniciansForm';
 import TechniciansList from './TechniciansList';
 import AppointmentsList from './AppointmentsList';
 import AppointmentsForm from './AppointmentsForm';
 import ServiceHistory from './ServiceHistory';
-import SalespeopleList from './SalespersonList';
-import SalespersonForm from './SalespersonForm';
 
 
 function App() {
@@ -39,13 +39,14 @@ function App() {
                 <Route index element={<SalespeopleList />} />
                 <Route path="create" element={<SalespersonForm />} />
             </Route>
-            <Route path="vehicles">
-                <Route index element={<VehiclesList />} />
-                <Route path="create" element={<VehiclesForm />} />
+            <Route path="technicians">
+                <Route index element={<TechniciansList />} />
+                <Route path="create" element={<TechniciansForm />} />
             </Route>
-            <Route path="vehicles">
-                <Route index element={<VehiclesList />} />
-                <Route path="new" element={<VehiclesForm />} />
+            <Route path="appointments">
+                <Route index element={<AppointmentsList />} />
+                <Route path="create" element={<AppointmentsForm />} />
+                <Route path="history" element={<ServiceHistory />} />
             </Route>
         </Routes>
       </div>

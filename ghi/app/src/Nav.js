@@ -19,10 +19,19 @@ function Nav() {
               </a>
               <ul className="dropdown-menu">
                 <li><NavLink className="dropdown-item" to="/appointments" end>View Appointments</NavLink></li>
-                <li><NavLink className="dropdown-item" to="/appointments/new" end>New Appointment</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/appointments/create" end>New Appointment</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/appointments/history" end>Service History</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/technicians" end>View Technicians</NavLink></li>
-                <li><NavLink className="dropdown-item" to="/technicians/new" end>New Technician</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/technicians/create" end>New Technician</NavLink></li>
+              </ul>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sales
+              </a>
+              <ul className="dropdown-menu">
+                    <li><NavLink className="dropdown-item" to="/salespeople" end>View Salespeople</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/salespeople/create" end>Add Salesperson</NavLink></li>
               </ul>
             </li>
             <li className="nav-item dropdown">
@@ -36,8 +45,6 @@ function Nav() {
                     <li><NavLink className="dropdown-item" to="/automobiles/create" end>Add Automobiles</NavLink></li>
                     <li><NavLink className="dropdown-item" to="/vehicles" end>View Models</NavLink></li>
                     <li><NavLink className="dropdown-item" to="/vehicles/create" end>Add Models</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/salespeople" end>View Salespeople</NavLink></li>
-                    <li><NavLink className="dropdown-item" to="/salespeople/create" end>Add Salesperson</NavLink></li>
                 </ul>
             </li>
           </ul>

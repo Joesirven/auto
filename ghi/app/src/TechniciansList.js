@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { FetchWrapper } from "./fetch-wrapper";
 
 function TechniciansList() {
-    const [allAutomobiles, setAllAutomobiles] = useState([])
+    const [allTechnicians, setAllTechnicians] = useState([])
     const [refreshKey, setRefreshKey] = useState(0)
 
-    const InventoryAPI = new FetchWrapper('http://localhost:8100/')
+    const ServiceAPI = new FetchWrapper('http://localhost:8080/')
 
     const fetchData = async () => {
-        const automobilesData = await InventoryAPI.get('api/automobiles/')
-        setAllAutomobiles(automobilesData.autos)
+        const techniciansData = await ServiceAPI.get('api/technicians/')
+        setAllTechnicians(techniciansData.technicians)
     }
 
     useEffect(() => {
@@ -17,44 +17,24 @@ function TechniciansList() {
     }, [refreshKey])
 
 
-    // const soldText = automobile.sold ? 'Yes' : 'No';
-
-    // const deleteAutomobiles = id => {
-    //     InventoryAPI.delete(`api/Automobiles/${id}`).then(() => {
-    //         setRefreshKey(oldKey => oldKey + 1)
-    //     }).catch(error => {
-    //         console.error('Error deleting automobile:', error)
-    //     })
-    // };
-
-
     return (
     <>
+    <h1>Technicians</h1>
         <table className="table table-striped">
             <thead>
                 <tr>
-                    <th>VIN</th>
-                    <th>Color</th>
-                    <th>Year</th>
-                    <th>Image</th>
-                    <th>Model</th>
-                    <th>Manufacturer</th>
-                    <th>Sold</th>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                 </tr>
             </thead>
             <tbody>
-                {allAutomobiles.map(automobile => {
+                {allTechnicians.map(technician => {
                     return (
-                        <tr key={ automobile.id}>
-                            <td>{ automobile.vin }</td>
-                            <td>{ automobile.color }</td>
-                            <td>{ automobile.year }</td>
-                            <td>{ automobile.model.name }</td>
-                            <td>{ automobile.model.manufacturer.name }</td>
-                            <td>
-                                <img src={ automobile.model.picture_url } alt="new" />
-                            </td>
-                            <td>{ automobile.sold ? 'Yes' : 'No' }</td>
+                        <tr key={ technician.id }>
+                            <td>{ technician.employee_id }</td>
+                            <td>{ technician.first_name }</td>
+                            <td>{ technician.last_name }</td>
                         </tr>
                     )
                 })}

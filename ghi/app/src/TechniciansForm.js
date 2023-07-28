@@ -2,57 +2,40 @@ import React, { useEffect, useState } from 'react'
 import { FetchWrapper } from './fetch-wrapper'
 
 function TechniciansForm() {
-    const [model_id, setModel] = useState('')
-    const [color, setColor] = useState('')
-    const [year, setYear] = useState('')
-    const [vin, setVIN] = useState('')
-    const [models, setModels] = useState([])
+    const [first_name, setFirstName] = useState('')
+    const [last_name, setLastName] = useState('')
+    const [employee_id, setEmployeeID] = useState('')
 
-    const InventoryAPI = new FetchWrapper('http://localhost:8100/')
+    const ServiceAPI = new FetchWrapper('http://localhost:8080/')
 
-    const fetchData = async () => {
-        const modelsData = await InventoryAPI.get('api/models/')
-        setModels(modelsData.models)
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         const data = {}
 
-        data.color = color
-        data.year = year
-        data.vin = vin
-        data.model_id = model_id
+        data.first_name = first_name
+        data.last_name = last_name
+        data.employee_id = employee_id
 
-        const newAutomobile = await InventoryAPI.post('api/automobiles/', data)
-        setColor('')
-        setModel('')
-        setYear('')
-        setVIN('')
+        const newTechnician = await ServiceAPI.post('api/technicians/', data)
+        setFirstName('')
+        setLastName('')
+        setEmployeeID('')
     }
 
-    const handleColorChange = (event) => {
+    const handleFirstNameChange = (event) => {
         const value = event.target.value
-        setColor(value)
+        setFirstName(value)
     }
 
-    const handleModelChange = (event) => {
+    const handleLastNameChange = (event) => {
         const value = event.target.value
-        setModel(value)
+        setLastName(value)
     }
 
-    const handleYearChange = (event) => {
+    const handleEmployeeIDChange = (event) => {
         const value = event.target.value
-        setYear(value)
-    }
-
-    const handleVINChange = (event) => {
-        const value = event.target.value
-        setVIN(value)
+        setEmployeeID(value)
     }
 
 
@@ -61,31 +44,19 @@ function TechniciansForm() {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Add an automobile to inventor</h1>
+                    <h1>Add an Technician</h1>
                     <form onSubmit={handleSubmit} id="create-model-form">
                         <div className="form-floating mb-3">
-                            <input onChange={handleColorChange} placeholder="Color" required type="text" value={color} name="color" id="color" className="form-control" />
-                            <label htmlFor="color">Color</label>
+                            <input onChange={handleFirstNameChange} placeholder="First Name" required type="text" value={first_name} name="first_name" id="first_name" className="form-control" />
+                            <label htmlFor="first_name">First Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handleYearChange} placeholder="Year" required type="text" value={year} name="year" id="year" className="form-control" />
-                            <label htmlFor="year">Year</label>
+                            <input onChange={handleLastNameChange} placeholder="Last Name" required type="text" value={last_name} name="last_name" id="last_name" className="form-control" />
+                            <label htmlFor="last_name">Last Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handleVINChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
-                            <label htmlFor="vin">VIN</label>
-                        </div>
-                        <div className="mb-3">
-                            <select onChange={handleModelChange} required value={model_id} name="model" id="model" className="form-select">
-                                <option value="">Choose a model</option>
-                                {models.map(model => {
-                                    return (
-                                        <option key={model.id} value={model.id}>
-                                            {model.name}
-                                        </option>
-                                    )
-                                })}
-                            </select>
+                            <input onChange={handleEmployeeIDChange} placeholder="Employee ID" required type="text" value={employee_id} name="employee_id" id="employee_id" className="form-control" />
+                            <label htmlFor="employee_id">Employee ID</label>
                         </div>
                         <button className="btn btn-primary">Create</button>
                     </form>

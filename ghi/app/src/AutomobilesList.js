@@ -16,18 +16,6 @@ function AutomobilesList() {
         fetchData()
     }, [refreshKey])
 
-
-    // const soldText = automobile.sold ? 'Yes' : 'No';
-
-    // const deleteAutomobiles = id => {
-    //     InventoryAPI.delete(`api/Automobiles/${id}`).then(() => {
-    //         setRefreshKey(oldKey => oldKey + 1)
-    //     }).catch(error => {
-    //         console.error('Error deleting automobile:', error)
-    //     })
-    // };
-
-
     return (
     <>
         <table className="table table-striped">

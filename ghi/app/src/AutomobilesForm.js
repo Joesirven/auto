@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FetchWrapper } from './fetch-wrapper'
-import AutomobilesList from './AutomobilesList'
+
 
 function AutomobilesForm() {
     const [model_id, setModel] = useState('')

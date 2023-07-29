@@ -24,7 +24,6 @@ function SalespeopleList() {
         })
     };
 
-
     return (
     <>
         <table className="table table-striped">

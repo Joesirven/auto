@@ -32,6 +32,8 @@ function Nav() {
               <ul className="dropdown-menu">
                     <li><NavLink className="dropdown-item" to="/salespeople" end>View Salespeople</NavLink></li>
                     <li><NavLink className="dropdown-item" to="/salespeople/create" end>Add Salesperson</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/customers" end>View Customers</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/customers/create" end>Add Customer</NavLink></li>
               </ul>
             </li>
             <li className="nav-item dropdown">

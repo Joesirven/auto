@@ -107,6 +107,7 @@ def api_customers(request):
         )
     else:
         content = json.loads(request.body)
+        print(content)
         customers = Customer.objects.create(**content)
         return JsonResponse(
             customers,

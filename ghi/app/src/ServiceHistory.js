@@ -4,6 +4,7 @@ import { FetchWrapper } from "./fetch-wrapper";
 function ServiceHistory() {
     const [allAppointments, setAllAppointments] = useState([])
     const [refreshKey, setRefreshKey] = useState(0)
+    const [searchTerm, setSearchTerm] = useState('')
 
     const ServiceAPI = new FetchWrapper('http://localhost:8080/')
 
@@ -16,14 +17,17 @@ function ServiceHistory() {
         fetchData()
     }, [refreshKey])
 
-
+    const handleSearchTermChange = (event) => {
+        const value = event.target.value
+        setSearchTerm(value)
+    }
 
     return (
     <>
 
     <h1>Service History</h1>
     <div>
-        <input></input><button>Search</button>
+        <input value={searchTerm} onChange={handleSearchTermChange} ></input><button>Search</button>
     </div>
         <table className="table table-striped">
             <thead>
@@ -39,7 +43,7 @@ function ServiceHistory() {
                 </tr>
             </thead>
             <tbody>
-                {allAppointments.map(appointment => {
+                {allAppointments.filter(appointment => appointment.vin.slice(0,searchTerm.length) === searchTerm ).map(appointment => {
                     return (
                         <tr key={ appointment.id }>
                             <td>{ appointment.vin }</td>

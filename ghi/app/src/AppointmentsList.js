@@ -4,6 +4,7 @@ import { FetchWrapper } from "./fetch-wrapper";
 function AppointmentsList() {
     const [allAppointments, setAllAppointments] = useState([])
     const [filteredAppointments, setFilteredAppointments] = useState([])
+    const [allVINS, setAllVINS] = useState({})
     const [refreshKey, setRefreshKey] = useState(0)
     const [vipStatuses, setVIPStatuses] = useState({})
 
@@ -17,13 +18,10 @@ function AppointmentsList() {
     const fetchData = async () => {
         const appointmentsData = await ServiceAPI.get('api/appointments/')
         setAllAppointments(appointmentsData.appointments)
-
-        const updatedStatuses = {}
-        for (const appointment of appointmentsData.appointments) {
-            const vipStatus = await isVIP(appointment.vin)
-            updatedStatuses[appointment.vin] = vipStatus
-        }
-        setVIPStatuses(updatedStatuses)
+        const autosData = await InventoryAPI.get(`api/automobiles/`)
+        const cache = {}
+        autosData.autos.forEach(auto => cache[auto.vin] = true)
+        setAllVINS(cache)
     }
 
     useEffect(() => {
@@ -41,15 +39,6 @@ function AppointmentsList() {
 
 
 
-
-    const isVIP = async (vin) => {
-        try {
-            await InventoryAPI.get(`api/automobiles/${vin}/`);
-            return "Yes";
-        } catch (error) {
-            return "No";
-        }
-    };
 
 
     const cancelAppointment = async (id) => {
@@ -96,9 +85,7 @@ function AppointmentsList() {
                     <tr key={ filteredAppointment.id }>
                         <td>{ filteredAppointment.vin }</td>
                         <td>{ filteredAppointment.id }</td>
-                        <td>
-                            {vipStatuses[filteredAppointment.vin]}
-                        </td>
+                        <td>{ allVINS[filteredAppointment.vin] ? "Yes" : "No" }</td>
                         <td>{ filteredAppointment.customer }</td>
                         <td>{ filteredAppointment.date_time }</td>
                         <td>{ filteredAppointment.date_time }</td>

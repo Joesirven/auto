@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { FetchWrapper } from './fetch-wrapper'
+import DateTimePicker from 'react-datetime-picker'
 
 function AppointmentsForm() {
     const [vin, setVIN] = useState('')
     const [customer, setCustomer] = useState('')
-    const [date, setDateTime] = useState('')
+    const [date_time, setDateTime] = useState('')
     const [technicians, setTechnicians] = useState([])
     const [technician, setTechnician] = useState('')
     const [reason, setReason] = useState('')
@@ -69,27 +70,35 @@ function AppointmentsForm() {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Add an automobile to inventor</h1>
+                    <h1>Create an service appoint</h1>
                     <form onSubmit={handleSubmit} id="create-model-form">
-                        <div className="form-floating mb-3">
-                            <input onChange={handleColorChange} placeholder="Color" required type="text" value={color} name="color" id="color" className="form-control" />
-                            <label htmlFor="color">Color</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleYearChange} placeholder="Year" required type="text" value={year} name="year" id="year" className="form-control" />
-                            <label htmlFor="year">Year</label>
-                        </div>
                         <div className="form-floating mb-3">
                             <input onChange={handleVINChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
                             <label htmlFor="vin">VIN</label>
                         </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleCustomerChange} placeholder="Customer" required type="text" value={customer} name="year" id="year" className="form-control" />
+                            <label htmlFor="customer">Customer</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <DateTimePicker onChange={handleDateTimeChange} value={date_time} required type="text" className="form-select" />
+                            <label htmlFor="date_time">Date and Time</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleTechnicianChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
+                            <label htmlFor="vin">VIN</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleReasonChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
+                            <label htmlFor="vin">VIN</label>
+                        </div>
                         <div className="mb-3">
-                            <select onChange={handleModelChange} required value={model_id} name="model" id="model" className="form-select">
-                                <option value="">Choose a model</option>
-                                {models.map(model => {
+                            <select onChange={handleTechnicianChange} required value={technician} name="technician" id="technician" className="form-select">
+                                <option value="technician">Choose a Technicians</option>
+                                {technicians.map(technician => {
                                     return (
-                                        <option key={model.id} value={model.id}>
-                                            {model.name}
+                                        <option key={technician.id} value={technicians.employee_id}>
+                                            {technician.name}
                                         </option>
                                     )
                                 })}

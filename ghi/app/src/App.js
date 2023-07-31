@@ -23,23 +23,23 @@ function App() {
           <Route path="/" element={<MainPage />} />
             <Route path="manufacturers">
                 <Route index element={<ManufacturersList />} />
-                <Route path="new" element={<ManufacturerForm />} />
+                <Route path="create" element={<ManufacturerForm />} />
             </Route>
             <Route path="automobiles">
                 <Route index element={<AutomobilesList />} />
-                <Route path="new" element={<AutomobilesForm />} />
+                <Route path="create" element={<AutomobilesForm />} />
             </Route>
             <Route path="vehicles">
                 <Route index element={<VehiclesList />} />
-                <Route path="new" element={<VehiclesForm />} />
+                <Route path="creat" element={<VehiclesForm />} />
             </Route>
             <Route path="technicians">
                 <Route index element={<TechniciansList />} />
-                <Route path="new" element={<TechniciansForm />} />
+                <Route path="create" element={<TechniciansForm />} />
             </Route>
             <Route path="appointments">
                 <Route index element={<AppointmentsList />} />
-                <Route path="new" element={<AppointmentsForm />} />
+                <Route path="create" element={<AppointmentsForm />} />
                 <Route path="history" element={<ServiceHistory />} />
             </Route>
         </Routes>

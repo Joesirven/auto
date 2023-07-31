@@ -22,7 +22,18 @@ function Nav() {
                 <li><NavLink className="dropdown-item" to="/appointments/create" end>New Appointment</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/appointments/history" end>Service History</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/technicians" end>View Technicians</NavLink></li>
-                <li><NavLink className="dropdown-item" to="/technicians/new" end>New Technician</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/technicians/create" end>New Technician</NavLink></li>
+              </ul>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sales
+              </a>
+              <ul className="dropdown-menu">
+                    <li><NavLink className="dropdown-item" to="/salespeople" end>View Salespeople</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/salespeople/create" end>Add Salesperson</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/customers" end>View Customers</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/customers/create" end>Add Customer</NavLink></li>
               </ul>
             </li>
             <li className="nav-item dropdown">

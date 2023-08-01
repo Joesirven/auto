@@ -39,7 +39,7 @@ class ModelEncoder(DateEncoder, QuerySetEncoder, JSONEncoder):
                     try:
                         value = encoder.default(value)
                     except TypeError:
-                        print(f"Error in encoding property '{property}': {e}")
+                        print(f"Error in encoding property '{property}': {o}")
                         value = str(value)
                 d[property] = value
             d.update(self.get_extra_data(o))

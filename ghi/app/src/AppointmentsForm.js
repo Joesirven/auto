@@ -10,7 +10,7 @@ function AppointmentsForm() {
     const [technician, setTechnician] = useState('')
     const [reason, setReason] = useState('')
 
-    const ServiceAPI = new FetchWrapper('http://localhost:8100/')
+    const ServiceAPI = new FetchWrapper('http://localhost:8080/')
 
     const fetchData = async () => {
         const techniciansData = await ServiceAPI.get('api/technicians/')
@@ -80,12 +80,16 @@ function AppointmentsForm() {
                             <input onChange={handleCustomerChange} placeholder="Customer" required type="text" value={customer} name="year" id="year" className="form-control" />
                             <label htmlFor="customer">Customer</label>
                         </div>
-                        {/* <div className="form-floating mb-3">
-                            <DateTimePicker onChange={handleDateTimeChange} value={date_time} required type="text" className="form-select" />
-                            <label htmlFor="date_time">Date and Time</label>
-                        </div> */}
                         <div className="form-floating mb-3">
-                            <input onChange={handleReasonChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
+                            <input onChange={handleDateTimeChange} placeholder="date_time" required type="datetime-local" value={date_time} name="year" id="year" className="form-control" />
+                            <label htmlFor="datetime-local">Date Time</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <DateTimePicker onChange={handleDateTimeChange} value={date_time} required />
+                            <label htmlFor="datetime-local">Date and Time</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input onChange={handleReasonChange} placeholder="VIN" required type="text" value={reason} name="vin" id="vin" className="form-control" />
                             <label htmlFor="vin">Reason</label>
                         </div>
                         <div className="mb-3">
@@ -93,8 +97,8 @@ function AppointmentsForm() {
                                 <option value="technician">Choose a Technician</option>
                                 {technicians.map(technician => {
                                     return (
-                                        <option key={technician.id} value={technician.id}>
-                                            {technician.first_name}
+                                        <option key={technician.id} value={technician.employee_id}>
+                                            {technician.first_name + ' ' + technician.last_name}
                                         </option>
                                     )
                                 })}

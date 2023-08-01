@@ -80,25 +80,21 @@ function AppointmentsForm() {
                             <input onChange={handleCustomerChange} placeholder="Customer" required type="text" value={customer} name="year" id="year" className="form-control" />
                             <label htmlFor="customer">Customer</label>
                         </div>
-                        <div className="form-floating mb-3">
+                        {/* <div className="form-floating mb-3">
                             <DateTimePicker onChange={handleDateTimeChange} value={date_time} required type="text" className="form-select" />
                             <label htmlFor="date_time">Date and Time</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleTechnicianChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
-                            <label htmlFor="vin">VIN</label>
-                        </div>
+                        </div> */}
                         <div className="form-floating mb-3">
                             <input onChange={handleReasonChange} placeholder="VIN" required type="text" value={vin} name="vin" id="vin" className="form-control" />
-                            <label htmlFor="vin">VIN</label>
+                            <label htmlFor="vin">Reason</label>
                         </div>
                         <div className="mb-3">
                             <select onChange={handleTechnicianChange} required value={technician} name="technician" id="technician" className="form-select">
-                                <option value="technician">Choose a Technicians</option>
+                                <option value="technician">Choose a Technician</option>
                                 {technicians.map(technician => {
                                     return (
-                                        <option key={technician.id} value={technicians.employee_id}>
-                                            {technician.name}
+                                        <option key={technician.id} value={technician.id}>
+                                            {technician.first_name}
                                         </option>
                                     )
                                 })}

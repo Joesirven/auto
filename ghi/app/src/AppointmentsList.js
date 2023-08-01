@@ -6,7 +6,6 @@ function AppointmentsList() {
     const [filteredAppointments, setFilteredAppointments] = useState([])
     const [allVINS, setAllVINS] = useState({})
     const [refreshKey, setRefreshKey] = useState(0)
-    const [vipStatuses, setVIPStatuses] = useState({})
 
 
     const ServiceAPI = new FetchWrapper('http://localhost:8080/')

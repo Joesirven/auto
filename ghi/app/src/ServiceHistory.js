@@ -5,12 +5,18 @@ function ServiceHistory() {
     const [allAppointments, setAllAppointments] = useState([])
     const [refreshKey, setRefreshKey] = useState(0)
     const [searchTerm, setSearchTerm] = useState('')
+    const [allVINS, setAllVINS] = useState({})
 
     const ServiceAPI = new FetchWrapper('http://localhost:8080/')
+    const InventoryAPI = new FetchWrapper('http://localhost:8100/')
 
     const fetchData = async () => {
         const appointmentsData = await ServiceAPI.get('api/appointments/')
         setAllAppointments(appointmentsData.appointments)
+        const autosData = await InventoryAPI.get(`api/automobiles/`)
+        const cache = {}
+        autosData.autos.forEach(auto => cache[auto.vin] = true)
+        setAllVINS(cache)
     }
 
     useEffect(() => {
@@ -47,7 +53,7 @@ function ServiceHistory() {
                     return (
                         <tr key={ appointment.id }>
                             <td>{ appointment.vin }</td>
-                            <td>No</td>
+                            <td>{ allVINS[appointment.vin] ? "Yes" : "No" }</td>
                             <td>{ appointment.customer }</td>
                             <td>{ appointment.date_time }</td>
                             <td>{ appointment.date_time }</td>
